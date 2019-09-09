@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CS4241 Assignment 2</title>
+  <link href="css/index.css" rel="stylesheet" type="index/css">
+  <link href="css/aos.css" rel="stylesheet" type="aos/css">
+  <script src="js/jquery.js"></script>
+  <script src="js/aos.js"></script>
+</head>
+<body>
+<script src="js/form.js"></script>
+<script src="js/NavBar.js"></script>
+<div class="parallax">
+  <div class="name">
+    <div align="center">
+      <div class="typewriter">
+        <h1>TaskTracker</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="navB" class="Heading">
+  <div class="textHead" >
+    <a class="textH"> TaskTracker </a>
+  </div>
+</div>
+<script> AOS.init(); </script>
+<div class="bodyIndex">
+  <ul class="bodyList">
+    <li class="listItem1">
+      <div class="icon">
+        <ul class="iconList">
+          <li class="iconItem">
+            <div class="iconImage"></div>
+          </li>
+          <li class="iconItem">
+            <ul class="mottoList">
+              <li class="mottoItem">
+                <div data-aos="fade-right" class="mottoItemCov1">
+                  <p class="iText">
+                    <a> Create Tasks. </a>
+                  </p>
+                </div>
+              </li>
+              <li class="mottoItem">
+                <div data-aos="fade-right" class="mottoItemCov2">
+                  <p class="iText">
+                    <a> Manage Tasks. </a>
+                  </p>
+                </div>
+              </li>
+              <li class="mottoItem">
+                <div data-aos="fade-right" class="mottoItemCov3">
+                  <p class="iText">
+                    <a> Track Tasks. </a>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="listItem2">
+      <div data-aos="fade-left" class="about">
+        <div class="aboutHead">
+          <h2 class="aboutText">
+            <a> What is TaskTracker? </a>
+          </h2>
+        </div>
+        <div class="intro">
+          <p class="introText">
+            TaskTracker is an online tool developed specifically for you to keep a list of things. Organize, track and check of items from lists, whether it's a shopping list
+            or a task list for your chores, and manage all of these lists in a personalized dashboard.
+          </p>
+        </div>
+        <div class="aboutT">
+          <table class="aboutTab">
+            <tr class="aboutRow">
+              <td class="aboutEle">
+                <div class="imgBrd"></div>
+              </td>
+              <td class="aboutEle">
+                <div class="imgList"></div>
+              </td>
+              <td class="aboutEle">
+                <div class="imgMan"></div>
+              </td>
+            </tr>
+            <tr class="aboutRow">
+              <td class="aboutEle">
+                <div class="textEle"> Personalized Board </div>
+              </td>
+              <td class="aboutEle">
+                <div class="textEle"> Multiple Lists </div>
+              </td>
+              <td class="aboutEle">
+                <div class="textEle"> Task Manager </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="getStarted">
+  <div data-aos="fade-up" class="getHead" >
+    <h1 class="headText" >
+      <a> Get Started. </a>
+    </h1>
+  </div>
+  <div class="formDiv" >
+    <form class="submitForm" action="">
+      <div data-aos="zoom-in" class="startForm" >
+        <div class="startContent" >
+          <table class="expTab">
+            <tr class="row">
+              <td class="headEle1">
+                <div class="ele"> Sign in </div>
+              </td>
+              <td class="headEle">
+                <div class="ele"> Register </div>
+              </td>
+            </tr>
+            <tr class="row">
+              <td class="expEle1">
+                <div class="ele">
+                  <input class="txtBox" type="text" id="userN" placeholder="Username">
+                </div>
+              </td>
+              <td class="expEle">
+                <div class="ele">
+                  <input class="txtBox" type="text" id="userName" placeholder="Username">
+                </div>
+              </td>
+              <td class="expEle">
+                <div class="ele">
+                  <input class="txtBox" type="text" id="FName" placeholder="Full Name">
+                </div>
+              </td>
+            </tr>
+            <tr class="row">
+              <td class="expEle1">
+                <div class="ele">
+                  <input class="txtBox" type="text" id="boardName" placeholder="Name of your Board">
+                </div>
+              </td>
+              <td class="expEle">
+                <div class="ele">
+                  <select class="selectBox" id="color">
+                    <option value="" disabled selected>Select a Color Theme</option>
+                    <option value="salmon">Salmon</option>
+                    <option value="blueviolet">Blue Violet</option>
+                    <option value="darkblue">Dark Blue</option>
+                    <option value="hotpink">Hot Pink</option>
+                    <option value="darkslategray">Dark Slate Gray</option>
+                    <option value="orangered">Orange Red</option>
+                  </select>
+              </div>
+              </td>
+              <td class="expEle">
+                <div class="ele">
+                  <input class="txtBox" type="text" id="board" placeholder="Name for your Board">
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div data-aos="zoom-in" class="btn">
+        <button id="continueBtn" class="button">Continue</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="designed" >
+  <h2 class="designText" >
+    <a> Designed and developed in Worcester, Massachuetts </a>
+  </h2>
+  <button id="resBtn" class="button">Database</button>
+</div>
+</body>
+</html>
