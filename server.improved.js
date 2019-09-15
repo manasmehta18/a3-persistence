@@ -7,13 +7,16 @@ const http = require( 'http' ),
       port = 3000
 
 var admin = require('firebase-admin');
-
 var serviceAccount = require("./serviceKey2.json")
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://a3-webware.firebaseio.com'
 });
+
+var passport = require('passport')
+    , OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
+
 
 var db = admin.database();
 var ref = db.ref("/");

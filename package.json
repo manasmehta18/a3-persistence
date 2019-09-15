@@ -8,8 +8,13 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
+    "express": "^4.17.1",
     "firebase": "^6.5.0",
     "firebase-admin": "^8.5.0",
-    "mime": "^2.4.4"
+    "mime": "^2.4.4",
+    "passport": "^0.4.0",
+    "passport-github2": "^0.1.11",
+    "passport-google-oauth": "^2.0.0",
+    "passport-oauth": "^1.0.0"
   }
 }
