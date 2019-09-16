@@ -1,22 +1,16 @@
 const express = require( 'express' ),
       app = express(),
-      fs   = require( 'fs' ),
-      // IMPORTANT: you must run `npm install` in the directory for this assignment
-      // to install the mime library used in the following line of code
-      mime = require( 'mime' ),
       session = require( 'express-session' ),
       passport = require( 'passport' ),
       OAuth2Strategy = require('passport-oauth').OAuth2Strategy,
       githhub = require( 'passport-github2' ).Strategy,
       bodyParser = require( 'body-parser' ),
-      dir  = 'public/',
-      port = 3000,
-      dreams = []
+      port = 3000
 
-app.use( express.static('/') )
-app.use( bodyParser.json() )
 
 app.use( express.static(__dirname + '/public' ) );
+app.use( bodyParser.json() )
+
 
 var admin = require('firebase-admin');
 var serviceAccount = require("./serviceKey2.json")
@@ -52,15 +46,16 @@ app.use( function (request, response, next ) {
   let dataString = ''
 
   request.on( 'data', function( data ) {
-      dataString += data 
+      dataString += data
   })
 
   request.on( 'end', function() {
     console.log( JSON.parse( dataString ) )
     json = JSON.parse( dataString )
-    dreams.push( json )
-    // add a 'json' field to our request object
-    request.json = JSON.stringify( dreams )
+    jsonU = {
+      username: json.name,
+      boardName: json.Board
+    }
 
     // ... do something with the data here!!!
     if(Object.keys(json).length === 4) {
@@ -85,6 +80,51 @@ app.use( function (request, response, next ) {
       json[emailKey] = email
 
       writeUserData(json.name, json.Board, json.name, json.fullname, json.email, json.Color, json.Board, json2)
+
+      var readUserData;
+
+     /* ref.on("value", function(snapshot) {
+        console.log(snapshot.val());
+        readUserData = snapshot.val();
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+
+      const myLocalStrategy = function( username, password, done ) {
+        // find the first item in our users array where the username
+        // matches what was sent by the client. nicer to read/write than a for loop!
+        const user = readUserData.users.find( __user => __user === username )
+
+        // if user is undefined, then there was no match for the submitted username
+        if( username !== JSON.stringify() ) {
+
+          return done( null, false, { message:'user not found' })
+        }else if( user.password === password ) {
+          // we found the user and the password matches!
+          // go ahead and send the userdata... this will appear as request.user
+          // in all express middleware functions.
+          return done( null, { username, password })
+        }else{
+          // we found the user but the password didn't match...
+          return done( null, false, { message: 'incorrect password' })
+        }
+      }
+
+      passport.use( new Local({
+        username: 'name',
+        password: 'Board'
+      }, myLocalStrategy ))
+      passport.initialize()
+
+      app.post(
+          '/login',
+          passport.authenticate( 'local' ),
+          function( req, res ) {
+            console.log( 'user:', req.user )
+            res.json({ status:true })
+          }
+      )*/
+
     } else if(Object.keys(json).length === 3) {
       writeUserData2(json.name, json.Board, json.listNameEdit)
     } else if(Object.keys(json).length === 6) {
@@ -94,7 +134,6 @@ app.use( function (request, response, next ) {
     }else if(Object.keys(json).length === 5) {
       writeUserData5(json.name, json.Board, json.taskNum)
     }
-
     next()
   })
 })
@@ -107,6 +146,7 @@ app.post( '/submit', function( request, response ) {
 })
 
 function writeUserData(ref, refBoard, username, fullname, email, color, boardName, lists) {
+  console.log("yeeeee");
   var usernameRef = usersRef.child(ref);
   var boardRef = usernameRef.child(refBoard);
   boardRef.set({

@@ -226,31 +226,31 @@ window.onload = function() {
         var b = localStorage.getItem('myBoard')
         console.log(n)
         console.log(response)
-        localStorage.setItem('taskNumber', JSON.stringify(response.users[n][b].lists[1].taskNums).replace(/^"(.*)"$/, '$1'));
-        document.getElementById('nav').style.backgroundColor = response.users[n][b].color;
-        document.getElementById('bName').innerText = JSON.stringify(response.users[n][b].boardName).replace(/^"(.*)"$/, '$1');
-        document.getElementById('usrTxt').innerText = JSON.stringify(response.users[n][b].username).replace(/^"(.*)"$/, '$1');
-        document.getElementById('name2').innerText = JSON.stringify(response.users[n][b].fullname).replace(/^"(.*)"$/, '$1');
-        document.getElementById('emailId2').innerText = JSON.stringify(response.users[n][b].email).replace(/^"(.*)"$/, '$1');
-        document.getElementById('listTextH').innerText = JSON.stringify(response.users[n][b].lists[1].listname).replace(/^"(.*)"$/, '$1');
+        if(response !== null) {
+            localStorage.setItem('taskNumber', JSON.stringify(response.users[n][b].lists[1].taskNums).replace(/^"(.*)"$/, '$1'));
+            document.getElementById('nav').style.backgroundColor = response.users[n][b].color;
+            document.getElementById('bName').innerText = JSON.stringify(response.users[n][b].boardName).replace(/^"(.*)"$/, '$1');
+            document.getElementById('usrTxt').innerText = JSON.stringify(response.users[n][b].username).replace(/^"(.*)"$/, '$1');
+            document.getElementById('name2').innerText = JSON.stringify(response.users[n][b].fullname).replace(/^"(.*)"$/, '$1');
+            document.getElementById('emailId2').innerText = JSON.stringify(response.users[n][b].email).replace(/^"(.*)"$/, '$1');
+            document.getElementById('listTextH').innerText = JSON.stringify(response.users[n][b].lists[1].listname).replace(/^"(.*)"$/, '$1');
+            var t = parseInt(localStorage.getItem('taskNumber'));
 
+            var str = '<ul style="list-style: none" >';
+            for(var i = 1; i <= t; i++) {
+                var ref = response.users[n][b].lists[1].tasks[i];
+                if(ref !== null) {
+                    var col1 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskName).replace(/^"(.*)"$/, '$1')
+                    var col2 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDesc).replace(/^"(.*)"$/, '$1')
+                    var col3 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDue).replace(/^"(.*)"$/, '$1')
+                    str += '<li>'+ '<a class="task1">' + '<br>' + i + '. ' + col1 + ':' + '</br>' + '</a>' + '<a class="task2">' + '<b> Task Desc: </b>' + col2 + '<br>' + '</a>' + '<a class="task3">' + '<b> Due By: </b>' + col3 + '</a>' + '</li>';
 
-        var t = parseInt(localStorage.getItem('taskNumber'));
-
-        var str = '<ul style="list-style: none" >';
-        for(var i = 1; i <= t; i++) {
-            var ref = response.users[n][b].lists[1].tasks[i];
-            if(ref !== null) {
-                var col1 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskName).replace(/^"(.*)"$/, '$1')
-                var col2 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDesc).replace(/^"(.*)"$/, '$1')
-                var col3 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDue).replace(/^"(.*)"$/, '$1')
-                str += '<li>'+ '<a class="task1">' + '<br>' + i + '. ' + col1 + ':' + '</br>' + '</a>' + '<a class="task2">' + '<b> Task Desc: </b>' + col2 + '<br>' + '</a>' + '<a class="task3">' + '<b> Due By: </b>' + col3 + '</a>' + '</li>';
-
+                }
             }
+            str += '</ul>';
+            document.getElementById("tasks").innerHTML = str;
+            console.log( "get response: ", response )
         }
-        str += '</ul>';
-        document.getElementById("tasks").innerHTML = str;
-        console.log( "get response: ", response )
     })
 
     const button1 = document.getElementById( 'doneBtn' )
