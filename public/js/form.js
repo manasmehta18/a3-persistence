@@ -29,7 +29,8 @@ const submit = function( e ) {
     }
 
     fetch( '/submit', {
-        method:'POST',
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
         body
     })
         .then( function( response ) {

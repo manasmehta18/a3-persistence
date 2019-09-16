@@ -9,7 +9,7 @@ const editList = function( e ) {
         body = JSON.stringify( json )
 
     fetch( '/submit', {
-        method:'POST',
+        method:  'POST',
         body
     })
         .then( function( response ) {
