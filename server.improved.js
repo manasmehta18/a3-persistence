@@ -2,6 +2,7 @@ const express = require( 'express' ),
       app = express(),
       session = require( 'express-session' ),
       passport = require( 'passport' ),
+      Local     = require( 'passport-local' ).Strategy,
       OAuth2Strategy = require('passport-oauth').OAuth2Strategy,
       githhub = require( 'passport-github2' ).Strategy,
       bodyParser = require( 'body-parser' ),
@@ -57,7 +58,6 @@ app.use( function (request, response, next ) {
       boardName: json.Board
     }
 
-    // ... do something with the data here!!!
     if(Object.keys(json).length === 4) {
       var username = JSON.stringify(json.name).replace(/^"(.*)"$/, '$1');
       var email = username + "@tasktracker.com"
@@ -83,36 +83,31 @@ app.use( function (request, response, next ) {
 
       var readUserData;
 
-     /* ref.on("value", function(snapshot) {
+      ref.on("value", function(snapshot) {
         console.log(snapshot.val());
         readUserData = snapshot.val();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
 
-      const myLocalStrategy = function( username, password, done ) {
-        // find the first item in our users array where the username
-        // matches what was sent by the client. nicer to read/write than a for loop!
+      const myLocalStrategy = function( username, boardName, done ) {
         const user = readUserData.users.find( __user => __user === username )
-
-        // if user is undefined, then there was no match for the submitted username
-        if( username !== JSON.stringify() ) {
-
+        if( user === undefined ) {
           return done( null, false, { message:'user not found' })
-        }else if( user.password === password ) {
-          // we found the user and the password matches!
-          // go ahead and send the userdata... this will appear as request.user
-          // in all express middleware functions.
-          return done( null, { username, password })
-        }else{
-          // we found the user but the password didn't match...
-          return done( null, false, { message: 'incorrect password' })
+        } else {
+          const board = readUserData.users.user.find( __board => __board === boardName )
+          if(board === undefined) {
+            return done( null, false, { message: 'incorrect password' })
+          }
+          else {
+            return done( null, { username, boardName })
+          }
         }
       }
 
       passport.use( new Local({
         username: 'name',
-        password: 'Board'
+        boardName: 'Board'
       }, myLocalStrategy ))
       passport.initialize()
 
@@ -123,7 +118,7 @@ app.use( function (request, response, next ) {
             console.log( 'user:', req.user )
             res.json({ status:true })
           }
-      )*/
+      )
 
     } else if(Object.keys(json).length === 3) {
       writeUserData2(json.name, json.Board, json.listNameEdit)
@@ -139,14 +134,11 @@ app.use( function (request, response, next ) {
 })
 
 app.post( '/submit', function( request, response ) {
-  // our request object now has a 'json' field in it from our
-  // previous middleware
   response.writeHead( 200, { 'Content-Type': 'application/json'})
   response.end( JSON.stringify( request.json ) )
 })
 
 function writeUserData(ref, refBoard, username, fullname, email, color, boardName, lists) {
-  console.log("yeeeee");
   var usernameRef = usersRef.child(ref);
   var boardRef = usernameRef.child(refBoard);
   boardRef.set({
