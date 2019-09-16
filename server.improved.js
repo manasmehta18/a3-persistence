@@ -44,83 +44,12 @@ require('firebase/app');
 require("firebase/firestore");
 
 app.use( function (request, response, next ) {
-  let dataString = ''
-
-  request.on( 'data', function( data ) {
-      dataString += data
-  })
-
-  request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-    json = JSON.parse( dataString )
+    json = request.body;
     jsonU = {
       username: json.name,
       boardName: json.Board
     }
-
-    if(Object.keys(json).length === 4) {
-      var username = JSON.stringify(json.name).replace(/^"(.*)"$/, '$1');
-      var email = username + "@tasktracker.com"
-      var emailKey = "email"
-
-      json2 = {
-        "1" : {
-          "listname": "list1",
-          "taskNums": 1,
-          "tasks": {
-            "1": {
-              "taskName": "Add a task",
-              "taskDesc": "Add a new task or edit this one",
-              "taskDue": "The Time and Date by which task is due"
-            }
-          }
-        }
-      };
-
-      json[emailKey] = email
-
-      writeUserData(json.name, json.Board, json.name, json.fullname, json.email, json.Color, json.Board, json2)
-
-      var readUserData;
-
-      ref.on("value", function(snapshot) {
-        console.log(snapshot.val());
-        readUserData = snapshot.val();
-      }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-      });
-
-      const myLocalStrategy = function( username, boardName, done ) {
-        const user = readUserData.users.find( __user => __user === username )
-        if( user === undefined ) {
-          return done( null, false, { message:'user not found' })
-        } else {
-          const board = readUserData.users.user.find( __board => __board === boardName )
-          if(board === undefined) {
-            return done( null, false, { message: 'incorrect password' })
-          }
-          else {
-            return done( null, { username, boardName })
-          }
-        }
-      }
-
-      passport.use( new Local({
-        username: 'name',
-        boardName: 'Board'
-      }, myLocalStrategy ))
-      passport.initialize()
-
-      app.post(
-          '/login',
-          passport.authenticate( 'local' ),
-          function( req, res ) {
-            console.log( 'user:', req.user )
-            res.json({ status:true })
-          }
-      )
-
-    } else if(Object.keys(json).length === 3) {
+    if(Object.keys(json).length === 3) {
       writeUserData2(json.name, json.Board, json.listNameEdit)
     } else if(Object.keys(json).length === 6) {
       writeUserData3(json.name, json.Board, json.taskName, json.taskDes, json.dueDate, json.taskNum)
@@ -130,12 +59,58 @@ app.use( function (request, response, next ) {
       writeUserData5(json.name, json.Board, json.taskNum)
     }
     next()
-  })
+
+})
+
+app.post( '/login', function( request, response ) {
+
+  json = request.body;
+  jsonU = {
+    username: json.name,
+    boardName: json.Board
+  }
+
+  if(Object.keys(json).length === 4) {
+    var username = JSON.stringify(json.name).replace(/^"(.*)"$/, '$1');
+    var email = username + "@tasktracker.com"
+    var emailKey = "email"
+
+    json2 = {
+      "1": {
+        "listname": "list1",
+        "taskNums": 1,
+        "tasks": {
+          "1": {
+            "taskName": "Add a task",
+            "taskDesc": "Add a new task or edit this one",
+            "taskDue": "The Time and Date by which task is due"
+          }
+        }
+      }
+    };
+
+    json[emailKey] = email
+
+    writeUserData(json.name, json.Board, json.name, json.fullname, json.email, json.Color, json.Board, json2)
+  }
+  if(Object.keys(json).length === 2) {
+
+    ref.on("value", function (snapshot) {
+      console.log(snapshot.val());
+      response.end(JSON.stringify(snapshot.val()))
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  }
+
+
+  response.writeHead( 200, { 'Content-Type': 'application/json'})
+  response.end( JSON.stringify( request.json ) )
 })
 
 app.post( '/submit', function( request, response ) {
   response.writeHead( 200, { 'Content-Type': 'application/json'})
-  response.end( JSON.stringify( request.json ) )
+  response.end( JSON.stringify( request.body ) )
 })
 
 function writeUserData(ref, refBoard, username, fullname, email, color, boardName, lists) {
@@ -202,5 +177,36 @@ function writeUserData5(ref, refBoard, taskNum) {
         console.log("Remove failed: " + error.message)
       });
 }
+
+const myLocalStrategy = function( username, password, done ) {
+  // find the first item in our users array where the username
+  // matches what was sent by the client. nicer to read/write than a for loop!
+
+  const user = users.find( __user => __user.username === username )
+
+  // if user is undefined, then there was no match for the submitted username
+  if( user === undefined ) {
+    /* arguments to done():
+     - an error object (usually returned from database requests )
+     - authentication status
+     - a message / other data to send to client
+    */
+    return done( null, false, { message:'user not found' })
+  }else if( user.password === password ) {
+    // we found the user and the password matches!
+    // go ahead and send the userdata... this will appear as request.user
+    // in all express middleware functions.
+    return done( null, { username, password })
+  }else{
+    // we found the user but the password didn't match...
+    return done( null, false, { message: 'incorrect password' })
+  }
+}
+
+passport.use( new Local( {
+  username: 'name',
+  boardName: 'Board'
+} , myLocalStrategy ) )
+passport.initialize()
 
 app.listen( process.env.PORT || port )

@@ -28,8 +28,9 @@ const submit = function( e ) {
         console.log('error')
     }
 
-    fetch( '/submit', {
+    fetch( '/login', {
         method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
         body
     })
         .then( function( response ) {

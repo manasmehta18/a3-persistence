@@ -10,6 +10,7 @@ const editList = function( e ) {
 
     fetch( '/submit', {
         method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
         body
     })
         .then( function( response ) {
@@ -114,6 +115,7 @@ const editTask = function( e ) {
 
     fetch( '/submit', {
         method:'POST',
+        headers: { 'Content-Type': 'application/json' },
         body
     })
         .then( function( response ) {
@@ -169,6 +171,7 @@ const delTask = function( e ) {
 
     fetch( '/submit', {
         method:'POST',
+        headers: { 'Content-Type': 'application/json' },
         body
     })
         .then( function( response ) {
