@@ -14,31 +14,42 @@ const submit = function( e ) {
         signBoard = document.querySelector('#boardName'),
         jsonSign = { name: signName.value, Board: signBoard.value }
 
-    window.localStorage
+    window.localStorage;
 
     if(inputName.value === '' && signName.value !== '') {
         body = JSON.stringify( jsonSign )
         localStorage.setItem('myName', signName.value)
         localStorage.setItem('myBoard', signBoard.value)
+
+        fetch( '/login', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body
+        })
+            .then( function( response ) {
+                console.log( "post response: ", response )
+                window.location = "/task.html"
+            })
+
     } else if(inputName.value !== '' && signName.value === '') {
         body = JSON.stringify( json )
         localStorage.setItem('myName', inputName.value)
         localStorage.setItem('myBoard', boardName.value)
+
+        fetch( '/submit', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body
+        })
+            .then( function( response ) {
+                console.log( "post response: ", response )
+                window.location = "/task.html"
+            })
+
     } else {
         console.log('error')
     }
 
-    fetch( '/login', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body
-    })
-        .then( function( response ) {
-            // do something with the reponse
-            console.log( "post response: ", response )
-        })
-
-    window.location = "/task.html"
     return true
 }
 

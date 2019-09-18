@@ -1,17 +1,25 @@
 const express = require( 'express' ),
       app = express(),
-      session = require( 'express-session' ),
       passport = require( 'passport' ),
-      Local     = require( 'passport-local' ).Strategy,
+      LocalStrategy = require( 'passport-local' ).Strategy,
       OAuth2Strategy = require('passport-oauth').OAuth2Strategy,
       githhub = require( 'passport-github2' ).Strategy,
       bodyParser = require( 'body-parser' ),
-      port = 3000
-
+      port = 3000,
+      flash = require("connect-flash");
 
 app.use( express.static(__dirname + '/public' ) );
 app.use( bodyParser.json() )
-
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+app.use(flash());
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 var admin = require('firebase-admin');
 var serviceAccount = require("./serviceKey2.json")
@@ -20,7 +28,6 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://a3-webware.firebaseio.com'
 });
-
 
 app.get('/', function (request, response) {
   response.sendFile(__dirname + '/public/items.html');
@@ -35,7 +42,6 @@ app.get('/receive', function (request, response) {
   });
 });
 
-
 var db = admin.database();
 var ref = db.ref("/");
 var usersRef = ref.child("users");
@@ -43,32 +49,51 @@ var usersRef = ref.child("users");
 require('firebase/app');
 require("firebase/firestore");
 
-app.use( function (request, response, next ) {
-    json = request.body;
-    jsonU = {
-      username: json.name,
-      boardName: json.Board
-    }
-    if(Object.keys(json).length === 3) {
-      writeUserData2(json.name, json.Board, json.listNameEdit)
-    } else if(Object.keys(json).length === 6) {
-      writeUserData3(json.name, json.Board, json.taskName, json.taskDes, json.dueDate, json.taskNum)
-    }else if(Object.keys(json).length === 7) {
-      writeUserData4(json.name, json.Board, json.taskNum, json.taskName, json.taskDes, json.dueDate)
-    }else if(Object.keys(json).length === 5) {
-      writeUserData5(json.name, json.Board, json.taskNum)
-    }
-    next()
 
-})
+passport.use('local', new LocalStrategy( function( username, password, done ) {
 
-app.post( '/login', function( request, response ) {
+  let data = {};
+  console.log("ddddddd");
+
+  ref.on("value", function (snapshot) {
+    console.log("fffffff");
+    console.log(JSON.stringify(snapshot.val()));
+    data = snapshot.val()
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+
+  const n = localStorage.getItem('myName')
+  var b = localStorage.getItem('myBoard')
+
+  const user = data.users[n];
+
+  if( user === undefined || user ===  null ) {
+    return done( null, false, { message:'user not found' })
+  }else{
+
+    const pass = data.users[n][b];
+
+    if( pass !==  null && pass !== undefined) {
+      return done(null, {username, password})
+    } else {
+      return done( null, false, { message: 'incorrect password' })
+    }
+  }
+}));
+
+app.post( '/login', function( req, res ) {
+  console.log( 'user:', req.body.name );
+
+  res.json({'status': true});
+
+  // res.writeHead( 200, { 'Content-Type': 'application/json'});
+  // res.end( JSON.stringify( request.json ) )
+});
+
+app.post( '/submit', function( request, response ) {
 
   json = request.body;
-  jsonU = {
-    username: json.name,
-    boardName: json.Board
-  }
 
   if(Object.keys(json).length === 4) {
     var username = JSON.stringify(json.name).replace(/^"(.*)"$/, '$1');
@@ -92,23 +117,16 @@ app.post( '/login', function( request, response ) {
     json[emailKey] = email
 
     writeUserData(json.name, json.Board, json.name, json.fullname, json.email, json.Color, json.Board, json2)
+  } else if(Object.keys(json).length === 3) {
+    writeUserData2(json.name, json.Board, json.listNameEdit)
+  } else if(Object.keys(json).length === 6) {
+    writeUserData3(json.name, json.Board, json.taskName, json.taskDes, json.dueDate, json.taskNum)
+  }else if(Object.keys(json).length === 7) {
+    writeUserData4(json.name, json.Board, json.taskNum, json.taskName, json.taskDes, json.dueDate)
+  }else if(Object.keys(json).length === 5) {
+    writeUserData5(json.name, json.Board, json.taskNum)
   }
-  if(Object.keys(json).length === 2) {
 
-    ref.on("value", function (snapshot) {
-      console.log(snapshot.val());
-      response.end(JSON.stringify(snapshot.val()))
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
-  }
-
-
-  response.writeHead( 200, { 'Content-Type': 'application/json'})
-  response.end( JSON.stringify( request.json ) )
-})
-
-app.post( '/submit', function( request, response ) {
   response.writeHead( 200, { 'Content-Type': 'application/json'})
   response.end( JSON.stringify( request.body ) )
 })
@@ -177,36 +195,5 @@ function writeUserData5(ref, refBoard, taskNum) {
         console.log("Remove failed: " + error.message)
       });
 }
-
-const myLocalStrategy = function( username, password, done ) {
-  // find the first item in our users array where the username
-  // matches what was sent by the client. nicer to read/write than a for loop!
-
-  const user = users.find( __user => __user.username === username )
-
-  // if user is undefined, then there was no match for the submitted username
-  if( user === undefined ) {
-    /* arguments to done():
-     - an error object (usually returned from database requests )
-     - authentication status
-     - a message / other data to send to client
-    */
-    return done( null, false, { message:'user not found' })
-  }else if( user.password === password ) {
-    // we found the user and the password matches!
-    // go ahead and send the userdata... this will appear as request.user
-    // in all express middleware functions.
-    return done( null, { username, password })
-  }else{
-    // we found the user but the password didn't match...
-    return done( null, false, { message: 'incorrect password' })
-  }
-}
-
-passport.use( new Local( {
-  username: 'name',
-  boardName: 'Board'
-} , myLocalStrategy ) )
-passport.initialize()
 
 app.listen( process.env.PORT || port )

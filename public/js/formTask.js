@@ -58,6 +58,7 @@ const add = function( e ) {
 
     fetch( '/submit', {
         method:'POST',
+        headers: { 'Content-Type': 'application/json' },
         body
     })
         .then( function( response ) {
@@ -160,7 +161,6 @@ const editTask = function( e ) {
 
 const delTask = function( e ) {
     e.preventDefault()
-    console.log("yuyuyuyu")
 
     var n = localStorage.getItem('myName')
     var b = localStorage.getItem('myBoard')
