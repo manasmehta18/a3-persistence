@@ -51,27 +51,23 @@ passport.use('local', new LocalStrategy( {
 }, function( name, Board, done ) {
 
   let myData = {};
-  console.log("ddddddd");
 
   ref.on("value", function (snapshot) {
-    console.log("fffffff");
-    console.log(snapshot.val());
     myData = snapshot.val();
+    console.log("Successful Read from Database");
   }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
   });
 
   setTimeout(function() {
-    console.log('Yeee' + myData);
     const user = myData.users[name];
 
     if( user === undefined || user ===  null ) {
       console.log("user not found");
       return done( null, false, { message:'user not found' })
-    }else{
-
+    } else {
       const pass = myData.users[name][Board];
-      if( pass !==  null && pass !== undefined) {
+      if ( pass !==  null && pass !== undefined) {
         console.log("successfully authenticated");
         return done(null, {name, Board})
       } else {

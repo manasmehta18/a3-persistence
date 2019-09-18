@@ -21,7 +21,11 @@ const submit = function( e ) {
         localStorage.setItem('myName', signName.value)
         localStorage.setItem('myBoard', signBoard.value)
 
-        console.log("bqcqewcwee")
+        showToast({
+            str: "authenticating user",
+            time: 2000,
+            position: 'bottom'
+        });
 
         fetch( '/login', {
             method:  'POST',
@@ -29,8 +33,30 @@ const submit = function( e ) {
             body
         })
             .then( function( response ) {
-                console.log( "post response: ", response )
-                window.location = "/task.html"
+                console.log(response.status);
+                if(response.status === 200) {
+                    showToast({
+                        str: "successfully authenticated",
+                        time: 2000,
+                        position: 'bottom'
+                    });
+                    console.log("post response: ", response)
+                    window.location = "/task.html"
+                } else if(response.status === 401) {
+                    showToast({
+                        str: "authentication failed",
+                        time: 2000,
+                        position: 'bottom'
+                    });
+                    console.log("post response: ", response)
+                }  else {
+                    showToast({
+                        str: "unknown error",
+                        time: 2000,
+                        position: 'bottom'
+                    });
+                    console.log("post response: ", response)
+                }
             })
 
     } else if(inputName.value !== '' && signName.value === '') {
