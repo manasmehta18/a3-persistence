@@ -16,6 +16,7 @@
     "firebase": "^6.5.0",
     "firebase-admin": "^8.5.0",
     "flash": "^1.1.0",
+    "materialize-css": "^1.0.0-rc.2",
     "mime": "^2.4.4",
     "passport": "^0.4.0",
     "passport-github2": "^0.1.11",

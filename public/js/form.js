@@ -40,6 +40,7 @@ const submit = function( e ) {
                         time: 2000,
                         position: 'bottom'
                     });
+
                     console.log("post response: ", response)
                     window.location = "/task.html"
                 } else if(response.status === 401) {
@@ -70,6 +71,11 @@ const submit = function( e ) {
             body
         })
             .then( function( response ) {
+                showToast({
+                    str: "Creating Board",
+                    time: 2000,
+                    position: 'bottom'
+                });
                 console.log( "post response: ", response )
                 window.location = "/task.html"
             })
