@@ -21,6 +21,8 @@ const submit = function( e ) {
         localStorage.setItem('myName', signName.value)
         localStorage.setItem('myBoard', signBoard.value)
 
+        console.log("bqcqewcwee")
+
         fetch( '/login', {
             method:  'POST',
             headers: { 'Content-Type': 'application/json' },

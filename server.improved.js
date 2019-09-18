@@ -5,21 +5,17 @@ const express = require( 'express' ),
       OAuth2Strategy = require('passport-oauth').OAuth2Strategy,
       githhub = require( 'passport-github2' ).Strategy,
       bodyParser = require( 'body-parser' ),
-      port = 3000,
-      flash = require("connect-flash");
+      port = 3000
+      //flash = require("connect-flash");
 
 app.use( express.static(__dirname + '/public' ) );
-app.use( bodyParser.json() )
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-app.use(flash());
-app.use(require('express-session')({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use( bodyParser.json() );
+//app.use(flash());
+// app.use(require('express-session')({
+//   secret: 'keyboard cat',
+//   resave: true,
+//   saveUninitialized: true
+// }));
 
 var admin = require('firebase-admin');
 var serviceAccount = require("./serviceKey2.json")
@@ -49,47 +45,61 @@ var usersRef = ref.child("users");
 require('firebase/app');
 require("firebase/firestore");
 
+passport.use('local', new LocalStrategy( {
+  usernameField: 'name',
+  passwordField: 'Board'
+}, function( name, Board, done ) {
 
-passport.use('local', new LocalStrategy( function( username, password, done ) {
-
-  let data = {};
+  let myData = {};
   console.log("ddddddd");
 
   ref.on("value", function (snapshot) {
     console.log("fffffff");
-    console.log(JSON.stringify(snapshot.val()));
-    data = snapshot.val()
+    console.log(snapshot.val());
+    myData = snapshot.val();
   }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
   });
 
-  const n = localStorage.getItem('myName')
-  var b = localStorage.getItem('myBoard')
+  setTimeout(function() {
+    console.log('Yeee' + myData);
+    const user = myData.users[name];
 
-  const user = data.users[n];
+    if( user === undefined || user ===  null ) {
+      console.log("user not found");
+      return done( null, false, { message:'user not found' })
+    }else{
 
-  if( user === undefined || user ===  null ) {
-    return done( null, false, { message:'user not found' })
-  }else{
-
-    const pass = data.users[n][b];
-
-    if( pass !==  null && pass !== undefined) {
-      return done(null, {username, password})
-    } else {
-      return done( null, false, { message: 'incorrect password' })
+      const pass = myData.users[name][Board];
+      if( pass !==  null && pass !== undefined) {
+        console.log("successfully authenticated");
+        return done(null, {name, Board})
+      } else {
+        console.log("incorrect password");
+        return done( null, false, { message: 'incorrect password' })
+      }
     }
-  }
+  }, 1000);
+
+
 }));
 
-app.post( '/login', function( req, res ) {
-  console.log( 'user:', req.body.name );
+app.use(passport.initialize());
+//app.use(passport.session());
 
-  res.json({'status': true});
-
-  // res.writeHead( 200, { 'Content-Type': 'application/json'});
-  // res.end( JSON.stringify( request.json ) )
+passport.serializeUser(function(name, done) {
+  done(null, name);
 });
+
+passport.deserializeUser(function(name, done) {
+  done(null, name);
+});
+
+app.post( '/login', passport.authenticate( 'local' ), function( req, res ) {
+  console.log( 'user:', req.body.name );
+  res.json({'status': true});
+});
+
 
 app.post( '/submit', function( request, response ) {
 
