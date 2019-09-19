@@ -5,12 +5,23 @@ const express = require( 'express' ),
       bodyParser = require( 'body-parser' ),
       favicon = require('serve-favicon'),
       path = require('path'),
-      port = 3000
+      timeout = require('connect-timeout'),
+      helmet = require('helmet'),
+      port = 3000;
+
+
       //flash = require("connect-flash");
 
 app.use( express.static(__dirname + '/public' ) );
 app.use( bodyParser.json() );
 app.use(favicon(path.join(__dirname, '/public', 'panda.jpg')));
+app.use(helmet);
+app.use(timeout('10s'));
+app.use(haltOnTimedOut);
+function haltOnTimedOut(request, response, next) {
+  if(!request.timedout) next();
+  response.redirect('/index.html');
+}
 
 var admin = require('firebase-admin');
 var serviceAccount = require("./serviceKey2.json")
