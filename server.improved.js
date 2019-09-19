@@ -15,7 +15,7 @@ const express = require( 'express' ),
 app.use( express.static(__dirname + '/public' ) );
 app.use( bodyParser.json() );
 app.use(favicon(path.join(__dirname, '/public', 'panda.jpg')));
-app.use(helmet);
+app.use(helmet());
 app.use(timeout('10s'));
 app.use(haltOnTimedOut);
 function haltOnTimedOut(request, response, next) {
