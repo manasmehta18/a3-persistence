@@ -3,17 +3,14 @@ const express = require( 'express' ),
       passport = require( 'passport' ),
       LocalStrategy = require( 'passport-local' ).Strategy,
       bodyParser = require( 'body-parser' ),
+      favicon = require('serve-favicon'),
+      path = require('path'),
       port = 3000
       //flash = require("connect-flash");
 
 app.use( express.static(__dirname + '/public' ) );
 app.use( bodyParser.json() );
-//app.use(flash());
-// app.use(require('express-session')({
-//   secret: 'keyboard cat',
-//   resave: true,
-//   saveUninitialized: true
-// }));
+app.use(favicon(path.join(__dirname, '/public', 'panda.jpg')));
 
 var admin = require('firebase-admin');
 var serviceAccount = require("./serviceKey2.json")

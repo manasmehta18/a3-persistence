@@ -27,6 +27,8 @@
     "passport-local": "^1.0.0",
     "passport-oauth": "^1.0.0",
     "passport-session": "^1.0.2",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.5.0",
     "show-toast": "^1.1.4"
   }
 }
