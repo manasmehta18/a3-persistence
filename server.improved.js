@@ -16,12 +16,25 @@ app.use( express.static(__dirname + '/public' ) );
 app.use( bodyParser.json() );
 app.use(favicon(path.join(__dirname, '/public', 'panda.jpg')));
 app.use(helmet());
-app.use(timeout('10s'));
-app.use(haltOnTimedOut);
-function haltOnTimedOut(request, response, next) {
-  if(!request.timedout) next();
-  response.redirect('/index.html');
+
+app.post('/save', timeout('5s'), bodyParser.json(), haltOnTimedout, function (req, res, next) {
+  savePost(req.body, function (err, id) {
+    if (err) return next(err)
+    if (req.timedout) return
+    res.send('saved as id ' + id)
+  })
+})
+
+function haltOnTimedout (req, res, next) {
+  if (!req.timedout) next()
 }
+
+function savePost (post, cb) {
+  setTimeout(function () {
+    cb(null, ((Math.random() * 40000) >>> 0))
+  }, (Math.random() * 7000) >>> 0)
+}
+
 
 var admin = require('firebase-admin');
 var serviceAccount = require("./serviceKey2.json")
