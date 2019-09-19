@@ -15,6 +15,11 @@ const editList = function( e ) {
     })
         .then( function( response ) {
             console.log( "post response: ", response )
+            showToast({
+                str: "List Name Edited",
+                time: 2000,
+                position: 'bottom'
+            });
             return false
         }). then (function () {
         fetch('/receive')
@@ -63,6 +68,11 @@ const add = function( e ) {
     })
         .then( function( response ) {
             console.log( "post response: ", response )
+            showToast({
+                str: "Task Added",
+                time: 2000,
+                position: 'bottom'
+            });
             return false
         }). then (function () {
         fetch('/receive')
@@ -86,7 +96,7 @@ const add = function( e ) {
             var str = '<ul style="list-style: none" >';
             for(var i = 1; i <= t; i++) {
                 var ref = response.users[n][b].lists[1].tasks[i];
-                if(ref !== null) {
+                if(ref !== null  && ref !== undefined) {
                     var col1 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskName).replace(/^"(.*)"$/, '$1')
                     var col2 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDesc).replace(/^"(.*)"$/, '$1')
                     var col3 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDue).replace(/^"(.*)"$/, '$1')
@@ -121,6 +131,11 @@ const editTask = function( e ) {
     })
         .then( function( response ) {
             console.log( "post response: ", response )
+            showToast({
+                str: "Task Edited",
+                time: 2000,
+                position: 'bottom'
+            });
             return false
         }). then (function () {
         fetch('/receive')
@@ -144,7 +159,7 @@ const editTask = function( e ) {
             var str = '<ul style="list-style: none" >';
             for(var i = 1; i <= t; i++) {
                 var ref = response.users[n][b].lists[1].tasks[i];
-                if(ref !== null) {
+                if(ref !== null  && ref !== undefined) {
                     var col1 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskName).replace(/^"(.*)"$/, '$1')
                     var col2 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDesc).replace(/^"(.*)"$/, '$1')
                     var col3 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDue).replace(/^"(.*)"$/, '$1')
@@ -176,6 +191,11 @@ const delTask = function( e ) {
     })
         .then( function( response ) {
             console.log( "post response: ", response )
+            showToast({
+                str: "Task Deleted",
+                time: 2000,
+                position: 'bottom'
+            });
             return false
         }). then (function () {
         fetch('/receive')
@@ -199,7 +219,7 @@ const delTask = function( e ) {
             var str = '<ul style="list-style: none" >';
             for(var i = 1; i <= t; i++) {
                 var ref = response.users[n][b].lists[1].tasks[i];
-                if(ref !== null) {
+                if(ref !== null  && ref !== undefined) {
                     var col1 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskName).replace(/^"(.*)"$/, '$1')
                     var col2 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDesc).replace(/^"(.*)"$/, '$1')
                     var col3 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDue).replace(/^"(.*)"$/, '$1')
@@ -242,7 +262,7 @@ window.onload = function() {
             var str = '<ul style="list-style: none" >';
             for(var i = 1; i <= t; i++) {
                 var ref = response.users[n][b].lists[1].tasks[i];
-                if(ref !== null) {
+                if(ref !== null && ref !== undefined) {
                     var col1 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskName).replace(/^"(.*)"$/, '$1')
                     var col2 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDesc).replace(/^"(.*)"$/, '$1')
                     var col3 = JSON.stringify(response.users[n][b].lists[1].tasks[i].taskDue).replace(/^"(.*)"$/, '$1')

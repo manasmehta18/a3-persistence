@@ -5,8 +5,12 @@
     <link href="css/task.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <script src="js/jquery.js"></script>
+    <link href="css/materialize.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="js/show-toast.js"></script>
 </head>
 <body>
+    <script src="js/materialize.js"></script>
     <script src="js/formTask.js"></script>
     <div id="nav" class="Heading">
         <div class="textHead" >
@@ -17,7 +21,7 @@
             <ul class="logList">
                 <li class="logItem">
                     <div class="logBtn">
-                        <button id="logoutBtn" class="button">Logout</button>
+                        <button id="logoutBtn" class="button btn waves-effect waves-light btn-large">Logout</button>
                     </div>
                 </li>
                 <li class="logItem">
@@ -38,41 +42,68 @@
                             <div class="listHeadText1">
                                 <p id="listTextH" class="listTextH"></p>
                             </div>
-                            <div class="listHeadText2">
-                                <input class="txtBox" type="text" id="listNameEdit" placeholder="Edit List Name">
-                                <button id="doneBtn" class="button">Done</button>
+                            <div class="listHeadText2 ">
+                                <div class="input-field col s6">
+                                    <input class="txtBox" type="text" id="listNameEdit">
+                                    <label for="listNameEdit">Edit List Name</label>
+                                </div>
+                                <button id="doneBtn" class="button btn waves-effect waves-light">Done</button>
                             </div>
                         </div>
                         <div class="listHeadText3">
-                            <input class="txtBox" type="text" id="listEleAdd" placeholder="New Task Name">
-                            <input class="txtBox" type="text" id="listEleDesc" placeholder="New Task Description">
-                            <input class="txtBox" type="text" id="listEleDue" placeholder="New Task Due Date">
-                            <button id="addBtn" class="button">Add</button>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleAdd">
+                                <label for="listEleAdd">New Task Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleDesc">
+                                <label for="listEleDesc">New Task Description</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleDue">
+                                <label for="listEleDue">New Task Due Date</label>
+                            </div>
+                            <button id="addBtn" class="button btn waves-effect waves-light">Add</button>
                         </div>
                         <div class="listHeadText4">
-                            <input class="txtBox" type="text" id="listEleDel" placeholder="Delete Task Number">
-                            <button id="delBtn" class="button">Delete</button>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleDel">
+                                <label for="listEleDel">Delete Task Number</label>
+                            </div>
+                            <button id="delBtn" class="button btn waves-effect waves-light">Delete</button>
                         </div>
                         <div class="listHeadText5">
-                            <input class="txtBox" type="text" id="listEleEditM" placeholder="Edit Task Number">
-                            <input class="txtBox" type="text" id="listEleEditN" placeholder="Edit Task Name">
-                            <input class="txtBox" type="text" id="listEleEditD" placeholder="Edit Task Description">
-                            <input class="txtBox" type="text" id="listEleEditT" placeholder="Edit Task Due Date">
-                            <button id="editBtn" class="button">Edit</button>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleEditM">
+                                <label for="listEleEditM">Edit Task Number</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleEditN">
+                                <label for="listEleEditN">Edit Task Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleEditD">
+                                <label for="listEleEditD">Edit Task Description</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input class="txtBox" type="text" id="listEleEditT">
+                                <label for="listEleEditT">Edit Task Due Date</label>
+                            </div>
+                            <button id="editBtn" class="button btn waves-effect waves-light">Edit</button>
                         </div>
                         <div id="tasks" class="tasks"></div>
                     </div>
                 </td>
             </tr>
         </table>
-        <div id="addColumn" class="add">
+        <div id="addColumn" class="add btn-floating btn-large waves-effect waves-light red">
             <div id="addColumnChild"><b>+</b></div>
         </div>
     </div>
     <div id="bottomInfo" class="bottomInfo">
-        <a id="name">This is the Workspace of </a>
-        <a id="name2"></a>
-        <a id="emailId">| Track your Tasks at </a>
-        <a id="emailId2"></a>
+        <a id="name" class="bt">This is the Workspace of </a>
+        <a id="name2" class="bt"></a>
+        <a id="emailId" class="bt">| Track your Tasks at </a>
+        <a id="emailId2" class="bt"></a>
     </div>
 </body>
