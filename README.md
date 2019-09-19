@@ -1,74 +1,51 @@
-Assignment 3 - Persistence: Two-tier Web Application with Flat File Database, Express server, and CSS template
-===
 
-Due: September 16th, by 11:59 AM.
+## TaskTracker
 
-This assignnment continues where we left off, extending it to use the most popular Node.js server framework (express), a flat file database suitable for small applications (lowdb), and a CSS application framework / template of your choice (Boostrap, Material Design, Semantic UI, Pure etc.)
+Glitch: https://a3-manasmehta18.glitch.me
 
+TaskTracker is an online tool developed specifically for you to keep a list of things. Organize, track and check of items from lists, whether it's a shopping list or a task list for your chores, and manage all of these lists in a personalized dashboard. Each user can have multiple boards and can sign in to them using their username and the name for the board anytime. Each board can have multiple lists (functionality not added - only a demo exists) Each list can have multiple tasks. You can edit the list name, add new tasks, delete tasks and edit the tasks. The tasks are shown as a list. It's useful to have all of your lists stored at the same place, and a possible tracking option (not implemented) can notify you when a task is due. It's also useful to divide up your lists into different boards to categorize and organize them.
 
-Baseline Requirements
----
+## Challenges
 
-Your application is required to implement the following functionalities:
+Had a lot of issues setting up passport primarily due to lack of documentation
+Same goes for express and some other middlewares that I decided not to include because o the lack of documentation
+I could not implemnet O Auth since i am not storing usernames and passwords, instead i am storing usernames and board names so a user with one username cane have multiple boards and needs to authneticate to access each. This
+is because of the way, my nested JSON object is set up on firebase. 
 
-- a `Server`, created using Express (no alternatives will be accepted for this assignment)
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows users to add, modify, and delete data items (must be all three!) associated with their user name / account.
-- Use of at least five [Express middleware packages](https://expressjs.com/en/resources/middleware.html). Explore! 
-- Basic authentication using the [Passport middleware](http://www.passportjs.org) for Express (this counts as one of your five middleware packages). We encourage using the Local strategy, but OAuth (Open Authentication) can also be used for additional technical achievement. The course staff cannot help you with the various flavors of OAuth strategies. YOU MUST PROVIDE US WITH ACCOUNT CREDENTIALS TO LOGIN TO YOUR APPLICATION IF YOU USE OAUTH. The course staff cannot be expected to have credentials for any particular OAuth service.
-- Persistent data storage in between server sessions. [lowdb](https://github.com/typicode/lowdb) is a suitable database package for this assignment and will be discussed in class.
-- Use of a [CSS framework or template](https://github.com/troxler/awesome-css-frameworks). This should do the bulk of your styling/CSS for you and be appropriate to your application. For example, don't use [NES.css](https://nostalgic-css.github.io/NES.css/) (which is awesome!) unless you're creating a game or some type of retro 80s site.
+## Authentication
+I used passport-local for authentication because of the reason I explained above where I couldnt use o auth because 
+i am storing usernames and board names for a user, so a user with one username cane have multiple boards and needs to authneticate to access each. This
+is because of the way, my nested JSON object is set up on firebase. 
 
-Your application is required to demonstrate the use of the following concepts:
+## Database
+I used firebase for the database because of the user friendly UI it has and the ease with which I can view the contents of the database without having to have a 
+text file like lowdb and can delete contents right on the firebase. Also its a realtime database so I can see it update in real time. Also since it is cloud
+based, it has a lot of storage and can be accessed by anyone who has been granted access to it. 
 
-HTML:
-- HTML input tags and form fields of various flavors (`<textarea>`, `<input>`, checkboxes, radio buttons etc.)
-- HTML that can display all data *for a particular authenticated user*. Note that this is different from the last assignnment, which required the display of all data in memory on the server.
+## CSS Framework
 
-Note that it might make sense to have two simple pages for this assignment, one that handles login / authentication, and one that contains the rest of your application. For this assignment, it is acceptable to simply create new user accounts upon login if none exist, however, you must alert your users to this fact. If you're not using OAuth 
-
-CSS:
-- CSS styling should primarily be provided by your chosen template/framework. Oftentimes a great deal of care has been put into designing CSS templates; don't override their stylesheets unless you are extremely confident in your graphic design capabilities. The idea is to use CSS templates that give you a professional looking design aesthetic without requiring you to be a graphic designer yourself.
-
-JavaScript:
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server. See the [previous assignment](https://github.com/cs4241-19a/a2-shortstack) for reference.
-
-Node.js:
-- A server using Express, at least five pieces of Express middleware, and a persistent database (a flat file using lowdb is great).
-
-Deliverables
----
-
-Do the following to complete this assignment:
-
-1. Implement your project with the above requirements. A good potential starting point is to use the "hello-express" project template inside of Glitch; this appears as an option when you hit the "New Project" button. Use the work you did in the last assignment as a reference to implement functionality, as well as the notes from class on 9/9 and 9/12.
-2. If you developed your project locally, deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-3. Test your project to make sure that when someone goes to your main page on Glitch, it displays correctly.
-4. Ensure that your project has the proper naming scheme `a3-yourname` so we can find it.
-5. Fork this repository and modify the README to the specifications below. You do not need to include any of your project files in this repo (we will see those on Glitch), you only need to update and commit the README file.
-6. Create and submit a Pull Request to the original repo. Name the pull request using the following template: `a3-gitname-firstname-lastname`.
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-
-your glitch link e.g. http://a3-charlieroberts.glitch.me
-
-Include a very brief summary of your project here. Images are encouraged, along with concise, high-level text. Be sure to include:
-
-- the goal of the application
-- challenges you faced in realizing the application
-- what authentication strategy / database you chose to use and why (choosing one because it seemed the easiest to implement is perfectly acceptable)
-- what CSS framework you used and why.
-  - include any modifications to the CSS framework you made via custom CSS you authored.
-- the five Express middleware packages you used and a short (one sentence) summary of what each one does.
+I used materialize because of its wide range of css and javascript components and the ease with which it can be included in the html files. It also looks
+aesthetically very good.
+  
+ ## Express Middleware
+ 
+ 1. serve-static
+ 2. body-parser
+ 3. timeout
+ 4. passport
+ 5. helmet
+ 6. serve-favicon
 
 ## Technical Achievements
-- **Tech Achievement 1**: I used OAuth authentication via the GitHub strategy
-- **Tech Achievement 2**: I used over ten Express middleware packages, enabling me to create a server that...
+- **Tech Achievement 1**: Added toasts for every action that includes a button doing an action
+- **Tech Achievement 2**: I used 6 middleware (one additional)
+- **Tech Achievement 3**: added a panda favicon to each html page
+- **Tech Achievement 4**: user authentication for each user and each board - extra encapsulation
+- **Tech Achievement 5**: Data updates in real time when tasks are edited
+- **Tech Achievement 6**: redirect to task.html doesnt work if user authentication fails 
 
 ### Design/Evaluation Achievements
-- **Design Achievement 1**: I tested my application using screen reading software, and found that...
-- **Design Achievement 2**: I followed best practices for accessibility, including providing alt attributes for images and using semantic HTML. There are no `<div>` or `<span>` elements in my document.
-- **Design Achievement 3**: We tested the application with n=X users, finding that...
+- **Design Achievement 1**: Applied materialize to all of my previous css stylesheets
+- **Design Achievement 2**: Edited elements to which I applied material design framework to better fit my hard coded template
+- **Design Achievement 3**: Included icons using material icons
+- **Design Achievement 3**: Button color changes on hover
