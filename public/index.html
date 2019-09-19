@@ -5,15 +5,19 @@
   <title>CS4241 Assignment 2</title>
   <link href="css/index.css" rel="stylesheet" type="text/css">
   <link href="css/aos.css" rel="stylesheet" type="text/css">
+  <link href="css/materialize.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <script src="js/jquery.js"></script>
   <script src="js/aos.js"></script>
   <script src="js/show-toast.js"></script>
-  <script type="text/javascript" src="js/materialize.min.js"></script>
+
 </head>
 <body>
-<script>M.AutoInit();</script>
+<script src="js/materialize.js"></script>
 <script src="js/form.js"></script>
 <script src="js/NavBar.js"></script>
+<script>M.AutoInit();</script>
 <div class="parallax">
   <div class="name">
     <div align="center">
@@ -40,24 +44,18 @@
           <li class="iconItem">
             <ul class="mottoList">
               <li class="mottoItem">
-                <div data-aos="fade-right" class="mottoItemCov1">
-                  <p class="iText">
-                    <a> Create Tasks. </a>
-                  </p>
+                <div data-aos="fade-right" class="mottoItemCov card green">
+                  <p class="iText"> Create Tasks. </p>
                 </div>
               </li>
               <li class="mottoItem">
-                <div data-aos="fade-right" class="mottoItemCov2">
-                  <p class="iText">
-                    <a> Manage Tasks. </a>
-                  </p>
+                <div data-aos="fade-right" class="mottoItemCov card orange">
+                  <p class="iText"> Manage Tasks. </p>
                 </div>
               </li>
               <li class="mottoItem">
-                <div data-aos="fade-right" class="mottoItemCov3">
-                  <p class="iText">
-                    <a> Track Tasks. </a>
-                  </p>
+                <div data-aos="fade-right" class="mottoItemCov card blue">
+                  <p class="iText"> Track Tasks. </p>
                 </div>
               </li>
             </ul>
@@ -66,11 +64,9 @@
       </div>
     </li>
     <li class="listItem2">
-      <div data-aos="fade-left" class="about">
+      <div data-aos="fade-left" class="about card">
         <div class="aboutHead">
-          <h2 class="aboutText">
-            <a> What is TaskTracker? </a>
-          </h2>
+            <h2 class="aboutText"> What is TaskTracker? </h2>
         </div>
         <div class="intro">
           <p class="introText">
@@ -110,13 +106,11 @@
 </div>
 <div id="toast" class="getStarted">
   <div data-aos="fade-up" class="getHead" >
-    <h1 class="headText" >
-      <a> Get Started. </a>
-    </h1>
+    <h1 class="headText" >Get Started.</h1>
   </div>
   <div class="formDiv" >
     <form class="submitForm" action="">
-      <div data-aos="zoom-in" class="startForm" >
+      <div data-aos="zoom-in" class="startForm hoverable" >
         <div class="startContent" >
           <table class="expTab">
             <tr class="row">
@@ -129,60 +123,63 @@
             </tr>
             <tr class="row">
               <td class="expEle1">
-                <div class="ele">
-                  <input class="txtBox" type="text" id="userN" placeholder="Username">
+                <div class="ele input-field col s6">
+                  <input class="txtBox validate" type="text" id="userN">
+                  <label for="userN">Username</label>
                 </div>
               </td>
               <td class="expEle">
-                <div class="ele">
-                  <input class="txtBox" type="text" id="userName" placeholder="Username">
+                <div class="ele input-field col s6">
+                  <input class="txtBox validate" type="text" id="userName">
+                  <label for="userName">Username</label>
                 </div>
               </td>
               <td class="expEle">
-                <div class="ele">
-                  <input class="txtBox" type="text" id="FName" placeholder="Full Name">
+                <div class="ele input-field col s6">
+                  <input class="txtBox validate" type="text" id="FName">
+                  <label for="FName">Full Name</label>
                 </div>
               </td>
             </tr>
             <tr class="row">
               <td class="expEle1">
-                <div class="ele">
-                  <input class="txtBox" type="text" id="boardName" placeholder="Name of your Board">
+                <div class="ele input-field col s6">
+                  <input class="txtBox validate" type="text" id="boardName">
+                  <label for="boardName">Name of your Board</label>
                 </div>
               </td>
               <td class="expEle">
                 <div class="ele">
-                  <select class="selectBox" id="color">
-                    <option value="" disabled selected>Select a Color Theme</option>
-                    <option value="salmon">Salmon</option>
-                    <option value="blueviolet">Blue Violet</option>
-                    <option value="darkblue">Dark Blue</option>
-                    <option value="hotpink">Hot Pink</option>
-                    <option value="darkslategray">Dark Slate Gray</option>
-                    <option value="orangered">Orange Red</option>
-                  </select>
+                    <select id="color" class="selectBox">
+                      <option value="" disabled selected>Select a Color Theme</option>
+                      <option value="salmon">Salmon</option>
+                      <option value="blueviolet">Blue Violet</option>
+                      <option value="darkblue">Dark Blue</option>
+                      <option value="hotpink">Hot Pink</option>
+                      <option value="darkslategray">Dark Slate Gray</option>
+                      <option value="orangered">Orange Red</option>
+                    </select>
               </div>
               </td>
               <td class="expEle">
-                <div class="ele">
-                  <input class="txtBox" type="text" id="board" placeholder="Name for your Board">
+                <div class="ele input-field col s6">
+                  <input class="txtBox validate" type="text" id="board">
+                  <label for="board">Name for your Board</label>
                 </div>
               </td>
             </tr>
           </table>
         </div>
       </div>
-      <div data-aos="zoom-in" class="btn">
-        <button id="continueBtn" class="button">Continue</button>
+      <div data-aos="zoom-in" class="bten">
+        <button id="continueBtn" class="button btn waves-effect waves-light btn-large"><i class="material-icons right">send</i>Continue</button>
       </div>
     </form>
   </div>
 </div>
-<div class="designed" >
-  <h2 class="designText" >
-    <a> Designed and developed in Worcester, Massachuetts </a>
-  </h2>
-  <button id="resBtn" class="button">Database</button>
+<div class=" designed" >
+  <h2 class="designText" > Designed and developed in Worcester, Massachuetts</h2>
+  <button id="resBtn" class="button btn waves-effect waves-light">Database</button>
 </div>
 </body>
 </html>

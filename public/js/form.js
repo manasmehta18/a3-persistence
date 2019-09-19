@@ -22,7 +22,7 @@ const submit = function( e ) {
         localStorage.setItem('myBoard', signBoard.value)
 
         showToast({
-            str: "authenticating user",
+            str: "Authenticating User",
             time: 2000,
             position: 'bottom'
         });
@@ -36,23 +36,22 @@ const submit = function( e ) {
                 console.log(response.status);
                 if(response.status === 200) {
                     showToast({
-                        str: "successfully authenticated",
+                        str: "Successfully Authenticated",
                         time: 2000,
                         position: 'bottom'
                     });
-
                     console.log("post response: ", response)
                     window.location = "/task.html"
                 } else if(response.status === 401) {
                     showToast({
-                        str: "authentication failed",
+                        str: "Authentication Failed",
                         time: 2000,
                         position: 'bottom'
                     });
                     console.log("post response: ", response)
                 }  else {
                     showToast({
-                        str: "unknown error",
+                        str: "Unknown Error",
                         time: 2000,
                         position: 'bottom'
                     });
@@ -93,10 +92,11 @@ const res = function( e ) {
     return true
 }
 
+
 window.onload = function() {
     const button = document.getElementById('continueBtn')
     button.onclick = submit
 
     const button1 = document.getElementById('resBtn')
     button1.onclick = res
-    }
+}

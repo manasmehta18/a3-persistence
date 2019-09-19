@@ -18,7 +18,7 @@ h1 {
     top: auto !important;
     right: auto !important;
     bottom: 10%;
-    left:7%;
+    left:50%;
 }
 
 .name {
@@ -33,13 +33,13 @@ h1 {
     background-image: url(../Images/indexBg.jpg);
     /* Set a specific height */
 
-    height: 215px;
+    height: 1020px;
     padding-top: 400px;
     padding-bottom: 400px;
-    padding-left: 250px;
+    padding-left: 250px ;
     padding-right: 250px;
 
-    min-width: 1150px;
+    min-width: 1700px !important;
 
     margin: -10px;
     /* Create the parallax scrolling effect */
@@ -54,7 +54,7 @@ h1 {
     margin-bottom: 0;
     margin-left: -10px;
     margin-right: -10px;
-    height: 22px;
+    height: 72px;
     padding-top: 15px;
     padding-bottom: 25px;
     padding-left: 700px;
@@ -114,29 +114,26 @@ h1 {
 }
 
 .bodyIndex {
-    margin-bottom: -10px;
-    margin-left: -10px;
-    margin-right: -10px;
-    margin-top: 0px;
-    height: 400px;
+    margin: -10px;
+    height: 600px;
     padding-top: 100px;
     padding-bottom: 100px;
-    padding-left: 100px;
+    padding-left: 150px;
     padding-right: 100px;
     background-color: whitesmoke;
-    min-width: 1450px;
+    min-width: 1700px;
 
 }
 
 .getStarted {
     margin: -10px;
-    height: 515px;
+    height: 815px;
     padding-top: 100px;
     padding-bottom: 100px;
     padding-left: 250px;
     padding-right: 250px;
     background-color: #fa6255;
-    min-width: 1150px;
+    min-width: 1700px;
 
 }
 
@@ -183,63 +180,12 @@ h1 {
     background-size: cover;
 }
 
-.mottoItemCov1 {
-    margin: 10px;
-    background-color: #00aa01;
-    color: white;
+.mottoItemCov {
+    margin: 10px !important;
     width: 220px;
-    border-radius: 15px;
+    border-radius: 15px !important;
     text-align: center;
 }
-
-.mottoItemCov2 {
-    margin: 10px;
-    background-color: orange;
-    color: white;
-    width: 220px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.mottoItemCov3 {
-    margin: 10px;
-    background-color: dodgerblue;
-    color: white;
-    width: 220px;
-    border-radius: 15px;
-    text-align: center;
-}
-
-.mottoItemCov1:hover {
-    margin: 10px;
-    background-color: #00aa01;
-    color: white;
-    width: 220px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 1px 10px #999;
-}
-
-.mottoItemCov2:hover {
-    margin: 10px;
-    background-color: orange;
-    color: white;
-    width: 220px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 1px 10px #999;
-}
-
-.mottoItemCov3:hover {
-    margin: 10px;
-    background-color: dodgerblue;
-    color: white;
-    width: 220px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 1px 10px #999;
-}
-
 
 p {
     font-size: 1.5em;
@@ -251,7 +197,7 @@ p {
 }
 
 .iText {
-    color:whitesmoke;
+    color:whitesmoke !important;
     text-decoration: none;
 }
 
@@ -260,11 +206,10 @@ p {
 }
 
 .about {
-    margin-top: -55px;
-    margin-left: 80px;
-    padding: 10px;
-    border-radius: 15px;
-    box-shadow: 0 1px 10px #999;
+    margin-top: -55px !important;
+    margin-left: 200px !important;
+    padding: 10px !important;
+    border-radius: 15px !important;
 }
 
 .aboutHead {
@@ -275,9 +220,8 @@ p {
 .aboutText {
     font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
     font-weight: 600;
-    font-size: 1.5em;
-    color: black;
-
+    font-size: 2.5em;
+    color: black !important;
 }
 
 .intro {
@@ -296,11 +240,10 @@ p {
     line-height: 1.5em;
 }
 
-.aboutT {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+
+
+tr {
+    border: 0 !important;
 }
 
 .aboutEle {
@@ -357,7 +300,7 @@ p {
     background-color: #eeeeee;
     border-radius: 15px;
     box-shadow: 0 1px 10px black;
-    height: 300px;
+    height: 380px;
 }
 
 .startContent {
@@ -366,7 +309,7 @@ p {
 }
 
 .designed {
-    height: 40px;
+    height: 60px;
     margin-top: -20px;
     margin-bottom: -20px;
     margin-left: -10px;
@@ -380,121 +323,59 @@ p {
 }
 
 .designText {
-    font-size: 1em;
+    font-size: 1.1em;
     color: white;
     font-weight: 200;
+    margin-top: 20px;
     font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
 }
 
 .button {
-    background-color: dodgerblue;
-    border: none;
-    border-radius: 40px;
-    color: white;
-    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    border-radius: 40px !important;
     width: 200px;
-    font-size: 1.4em;
-    font-weight: 500;
-    box-shadow: 0 1px 10px darkslategray;
+
 }
 
-.button:hover {
-    background-color: #006eda;
-    box-shadow: 0 1px 10px darkslategray;
-    cursor: pointer;
-}
-
-.btn {
-    padding-left: 450px;
-    padding-right: 450px;
-    padding-top: 50px;
-    height: 100px;
-}
-
-.expTab {
-    padding-left: 30px;
-    padding-right: 50px;
-    padding-bottom: 50px;
-    padding-top: 30px;
-    border-collapse: collapse;
-
+.bten {
+    padding-left: 450px !important;
+    padding-right: 450px !important;
+    padding-top: 50px !important;
+    height: 100px !important;
 }
 
 .headEle {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 35px;
-    padding-right: 30px;
     font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
     text-decoration: none;
     font-size: 1.6em;
     font-weight: 700;
+    padding-left: 40px;
 }
 
 .expEle {
-    padding-top: 25px;
-    padding-bottom: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
-    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 500;
+    border-bottom: none !important;
+    padding-left: 40px;
 }
 
 .headEle1 {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 35px;
-    padding-right: 30px;
     font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter";
     text-decoration: none;
     font-size: 1.6em;
     font-weight: 700;
+    width: 350px !important;
     border-right: 5px groove #c9c9c9;
 }
 
 .expEle1 {
-    padding-top: 25px;
-    padding-bottom: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
-    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 500;
     border-right: 5px groove #c9c9c9;
-}
-
-.txtBox {
-    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-    text-decoration: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    font-size: 1.1em;
-    font-weight: 300;
-    box-sizing: border-box;
-    border: 2px solid transparent;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    outline: none;
-    cursor: auto;
-    width: 300px;
-    border-radius: 20px;
-}
-
-.txtBox:focus {
-    border: 2px solid dodgerblue;
+    width: 350px !important;
 }
 
 .ele {
     background-color: #eeeeee;
+}
+
+.txtBox {
+    width: 300px !important;
 }
 
 .selectBox {
@@ -505,8 +386,8 @@ p {
     color: #444;
     line-height: 1.3;
     padding: .6em 1.4em .5em .8em;
-    width: 100%;
-    max-width: 100%;
+    width: 300px;
+    max-width: 350px;
     box-sizing: border-box;
     margin: 0;
     border: 1px solid #aaa;
@@ -535,21 +416,8 @@ p {
 }
 
 #resBtn {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    height: 30px;
-    font-family: 'Source Code Pro', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    width: 150px;
-    font-size: 1em;
-    font-weight: 500;
-    box-shadow: 0 1px 10px black;
     position: absolute;
     right: 0;
-    margin-top: -39px;
+    margin-top: -48px;
     margin-right: 10px;
 }
