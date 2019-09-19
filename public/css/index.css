@@ -421,3 +421,8 @@ tr {
     margin-top: -48px;
     margin-right: 10px;
 }
+
+.button:hover {
+    background-color: #006eda !important;
+    box-shadow: 0 1px 10px black !important;
+}
